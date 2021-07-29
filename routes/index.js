@@ -1,19 +1,25 @@
-const router = require('koa-router')()
+const router = require("koa-router")({
+  prefix: "/xu",
+});
+const { Authenticate } = require("../middlewares/authenticate");
+const api = require("../api");
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
+// 接口定义
+router.get("/user/login", api.user.index.login);
+// router.get("/laster", new Authenticate().auth(第一个中间件), (ctx, next) => {
+//   ctx.body = ctx.auth;
+// }(第二个中间件))
+// 在用到token验证的接口，加入中间件函数，并且调用模块方法verify验证token是否正确
+// router.post('/logout', verifyToken, (req, res) => {
+//   jwToken.verify(req.token, secret, (err, data) => {
+//       if (!err) {
+//         //token正确，做些事情
+//           res.json({message: '退出登录', data})
+//       } else{
+//         //token不正确，返回401
+//         res.status(401).send()
+//       }
+//   })
+// })
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
-
-module.exports = router
+module.exports = router;
