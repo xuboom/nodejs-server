@@ -24,7 +24,7 @@ const generateToken = function (uid, scope) {
 
 async function login(ctx) {
   const { username, password } = ctx.query;
-  let isRegister = [];
+  let isRegister;
   isRegister = await mysql("user")
     .where({
       name: username,
@@ -32,19 +32,50 @@ async function login(ctx) {
     })
     .select();
   if (isRegister.length > 0) {
+    let user = {
+      id: isRegister[0].id,
+    };
     ctx.body = {
-      data: isRegister,
+      code: 0,
+      msg: "success",
+      data: user,
     };
   } else {
     ctx.body = {
-      data: false,
+      code: 999,
+      msg: "fail",
+      data: [],
     };
   }
 }
 
 async function register(ctx) {}
 
+async function getInfo(ctx) {
+  const { userid } = ctx.query;
+  let isRegister;
+  isRegister = await mysql("user")
+    .where({
+      id: userid,
+    })
+    .select();
+  if (isRegister.length > 0) {
+    delete isRegister[0].password;
+    ctx.body = {
+      code: 0,
+      msg: "success",
+      data: isRegister[0],
+    };
+  } else {
+    ctx.body = {
+      code: 999,
+      msg: "fail",
+      data: [],
+    };
+  }
+}
 module.exports = {
   login,
   register,
+  getInfo,
 };

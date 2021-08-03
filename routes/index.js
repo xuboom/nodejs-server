@@ -6,6 +6,8 @@ const api = require("../api");
 
 // 接口定义
 router.get("/user/login", api.user.index.login);
+router.get("/user/getInfo", api.user.index.getInfo);
+router.get("/daily/getDaily", api.daily.index.getDaily);
 // router.get("/laster", new Authenticate().auth(第一个中间件), (ctx, next) => {
 //   ctx.body = ctx.auth;
 // }(第二个中间件))
