@@ -5,9 +5,23 @@ const { Authenticate } = require("../middlewares/authenticate");
 const api = require("../api");
 
 // 接口定义
+// 用户登录
 router.get("/user/login", api.user.index.login);
+// 获取用户信息
 router.get("/user/getInfo", api.user.index.getInfo);
+// 获取用户每日
 router.get("/daily/getDaily", api.daily.index.getDaily);
+// 获取所有每日
+router.get("/daily/getAllDaily", api.daily.index.getAllDaily);
+// 发表每日
+router.post("/daily/addDaily", api.daily.index.addDaily);
+// 删除每日
+router.get("/daily/deletDaily", api.daily.index.deletDaily);
+//获取tag名
+router.get("/daily/getTag", api.daily.index.getTag);
+//获取tag下所有daily
+router.get("/daily/getTagDaily", api.daily.index.getTagDaily);
+
 // router.get("/laster", new Authenticate().auth(第一个中间件), (ctx, next) => {
 //   ctx.body = ctx.auth;
 // }(第二个中间件))
