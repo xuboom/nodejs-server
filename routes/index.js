@@ -21,7 +21,10 @@ router.get("/daily/deletDaily", api.daily.index.deletDaily);
 router.get("/daily/getTag", api.daily.index.getTag);
 //获取tag下所有daily
 router.get("/daily/getTagDaily", api.daily.index.getTagDaily);
-
+//
+router.get("/comment/getComment", api.comment.index.getComment);
+//
+router.get("/comment/getCommentSum", api.comment.index.getCommentSum);
 // router.get("/laster", new Authenticate().auth(第一个中间件), (ctx, next) => {
 //   ctx.body = ctx.auth;
 // }(第二个中间件))

@@ -43,6 +43,47 @@ async function getAllDaily(ctx) {
     .leftJoin("user", "daily.user_id", "user.id")
     .orderBy("daily.id", "desc")
     .select();
+  for (let i = 0; i < dailylist.length; i++) {
+    let dailyid = dailylist[i].id;
+    let num = await mysql("comment")
+      .where({
+        daily_id: dailyid,
+      })
+      .count("comment_id as sum");
+    let sum = JSON.stringify(num);
+    let res = JSON.parse(sum);
+    if (res !== 0) {
+      let comments = await mysql("comment")
+        .where({
+          daily_id: dailyid,
+          parent_id: 0,
+        })
+        .select();
+      comments = JSON.stringify(comments);
+      comments = JSON.parse(comments);
+      for (let j = 0; j < comments.length; j++) {
+        let name = await mysql("user")
+          .where({
+            id: comments[j].user_id,
+          })
+          .select();
+        name = JSON.stringify(name);
+        name = JSON.parse(name);
+        let subnum = await mysql("comment")
+          .where({
+            parent_id: comments[j].comment_id,
+          })
+          .count("comment_id as subnum");
+
+        let subsum = JSON.stringify(subnum);
+        let subres = JSON.parse(subsum);
+        comments[j].subsum = subres[0].subnum;
+        comments[j].user_name = name[0].name;
+      }
+      dailylist[i].first_comments = comments;
+    }
+    dailylist[i].sum = res[0].sum;
+  }
   if (dailylist.length > 0) {
     ctx.body = {
       code: 0,
