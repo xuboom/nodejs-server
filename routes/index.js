@@ -17,14 +17,16 @@ router.get("/daily/getAllDaily", api.daily.index.getAllDaily);
 router.post("/daily/addDaily", api.daily.index.addDaily);
 // 删除每日
 router.get("/daily/deletDaily", api.daily.index.deletDaily);
-//获取tag名
+// 获取tag名
 router.get("/daily/getTag", api.daily.index.getTag);
-//获取tag下所有daily
+// 获取tag下所有daily
 router.get("/daily/getTagDaily", api.daily.index.getTagDaily);
-//
+// 获取daily对应评论
 router.get("/comment/getComment", api.comment.index.getComment);
-//
-router.get("/comment/getCommentSum", api.comment.index.getCommentSum);
+// 获取daily对应一级评论
+router.get("/comment/getFirstComment", api.comment.index.getFirstComment);
+// 添加daily对应评论
+router.post("/comment/addComment", api.comment.index.addComment);
 // router.get("/laster", new Authenticate().auth(第一个中间件), (ctx, next) => {
 //   ctx.body = ctx.auth;
 // }(第二个中间件))

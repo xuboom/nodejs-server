@@ -1,23 +1,28 @@
-# nodejs-server
+# nodejs-server 留言小程序后台
 
-&emsp;
+基于 koa2+nodejs+mysql 的留言小程序后台
 
 # 功能设计
 
-&emsp;
-
 ## 用户管理模块
 
-### 用户登录
+### \* 用户登录
 
-##### API_LOGIN: '/user/login'
+##### &emsp;&emsp;API_LOGIN: '/user/login'
 
 - 1.get
 - 2.name+password 匹配
 - 3.成功返回用户信息
 - 4.失败返回 code：0 data：{} msg
 
-### 用户注册
+### \* 获取用户信息
+
+##### &emsp;&emsp;API_GETINFO: '/user/getInfo'
+
+- 1.get
+- 2.params: userid
+
+### \* 用户注册
 
 - 1.post
 - 2.name 查询是否被注册
@@ -25,30 +30,97 @@
 - 4.成功返回用户信息
 - 5.失败返回 code：0 data：{} msg
 
-### 用户退出
+### \* 修改信息
 
-- 1.post
-- 2.返回 msg
-- 3.token？
-
-### 修改信息
-
-#### 密码
+#### &emsp;&emsp;密码
 
 - 旧密码验证
 
-#### 其他
+#### &emsp;&emsp;其他
 
 - token？
 
-###
+&emsp;
 
 ## 日常内容模块
 
-### 获取日常内容
+### \* 获取全部日常内容
 
-##### API_LOGIN: '/user/login'
+##### &emsp;&emsp;API_GETALLDAILY: '/daily/getAllDaily'
 
 - 1.get
 - 2.mood 定义：0-大笑 1-笑 2-一般 3-伤心 4-哭泣 5-生气
 - 3.weather 定义：0-晴天 1-多云 2-阴天 3-下雨 4-雷电 5-下雪
+
+### \* 获取 tag 下日常内容
+
+##### &emsp;&emsp;API_GETTAGDAILY: '/daily/getTagDaily'
+
+- 1.get
+- 2.param：tagid
+
+### \* 获取用户对应日常内容
+
+##### &emsp;&emsp;API_GETDAILY: '/daily/getDaily'
+
+- 1.get
+- 2.params: userid
+
+### \* 获取 tag 标签名
+
+##### &emsp;&emsp;API_GETTAG: '/daily/getTag'
+
+- 1.get
+
+### \* 添加日常内容
+
+##### &emsp;&emsp;API_ADDDAILY: '/daily/addDaily'
+
+- 1.post
+- 2.{
+  "description": "tedfagst",
+  "userid": 1,
+  "mood": 0,
+  "weather": 1,
+  "time": "2013-2-13",
+  "tag": 1 //可选
+  }
+
+### \* 删除个人日常内容
+
+##### &emsp;&emsp;API_DELETEDAILY: '/daily/deletDaily'
+
+- 1.get
+- 2.params: id
+
+&emsp;
+
+## 评论点赞功能模块
+
+### \* 获取对应 daily 的评论
+
+##### &emsp;&emsp;API_GETCOMMENT: '/comment/getComment'
+
+- 1.get
+- 2.params: dailyid
+
+### \* 获取 daily 一级评论
+
+##### &emsp;&emsp;API_GETFIRSTCOMMENT: '/comment/getFirstComment'
+
+- 1.get
+- 2.params: dailyid
+
+### \* 添加评论
+
+##### &emsp;&emsp;API_ADDCOMMENT: '/comment/addComment'
+
+- 1.post
+- 2.{
+  "daily_id": 65,
+  "user_id": 4,
+  "parent_id": 0,
+  "sub_id": 0,
+  "content": "对啊",
+  "time": "2021-08-10 14:23"
+  }

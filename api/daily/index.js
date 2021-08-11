@@ -58,6 +58,7 @@ async function getAllDaily(ctx) {
           daily_id: dailyid,
           parent_id: 0,
         })
+        .orderBy("comment.comment_id", "desc")
         .select();
       comments = JSON.stringify(comments);
       comments = JSON.parse(comments);
@@ -71,7 +72,7 @@ async function getAllDaily(ctx) {
         name = JSON.parse(name);
         let subnum = await mysql("comment")
           .where({
-            parent_id: comments[j].comment_id,
+            sub_id: comments[j].comment_id,
           })
           .count("comment_id as subnum");
 
