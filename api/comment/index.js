@@ -76,7 +76,7 @@ async function getFirstComment(ctx) {
     name = JSON.parse(name);
     let subnum = await mysql("comment")
       .where({
-        parent_id: comments[j].comment_id,
+        sub_id: comments[j].comment_id,
       })
       .count("comment_id as subnum");
 

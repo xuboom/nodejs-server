@@ -9,6 +9,8 @@ const api = require("../api");
 router.get("/user/login", api.user.index.login);
 // 获取用户信息
 router.get("/user/getInfo", api.user.index.getInfo);
+// 注册新用户
+router.post("/user/register", api.user.index.register);
 // 获取用户每日
 router.get("/daily/getDaily", api.daily.index.getDaily);
 // 获取所有每日

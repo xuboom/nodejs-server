@@ -49,7 +49,46 @@ async function login(ctx) {
   }
 }
 
-async function register(ctx) {}
+async function register(ctx) {
+  const {
+    name,
+    birthday,
+    sex,
+    age,
+    address,
+    email,
+    password,
+    introduction,
+    phone,
+    register_date,
+    image,
+  } = ctx.request.body;
+  const data = await mysql("user").insert({
+    name: name,
+    birthday: birthday,
+    sex: sex,
+    age: age,
+    address: address,
+    email: email,
+    password: password,
+    introduction: introduction,
+    phone: phone,
+    register_date: register_date,
+    image: image,
+  });
+  console.log("dddd", data);
+  if (data) {
+    ctx.body = {
+      code: 0,
+      msg: "success",
+    };
+  } else {
+    ctx.body = {
+      code: 999,
+      msg: "fail",
+    };
+  }
+}
 
 async function getInfo(ctx) {
   const { userid } = ctx.query;
@@ -74,8 +113,20 @@ async function getInfo(ctx) {
     };
   }
 }
+
+// async function updateInfo(ctx){
+//   const { userid, column_name } = ctx.query;
+//   let result = await mysql("user")
+//   .where({
+//     id: userid,
+//   })
+//   .update({
+//     'column_name': column_name
+//   })
+// }
 module.exports = {
   login,
   register,
   getInfo,
+  // updateInfo,
 };
