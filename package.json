@@ -11,6 +11,8 @@
   "dependencies": {
     "basic-auth": "^2.0.1",
     "debug": "^4.1.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.8",
     "koa": "^2.7.0",
@@ -20,6 +22,7 @@
     "koa-logger": "^3.2.0",
     "koa-onerror": "^4.1.0",
     "koa-router": "^7.4.0",
+    "koa-sslify": "^5.0.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "lodash": "^4.17.21",

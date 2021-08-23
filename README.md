@@ -24,11 +24,23 @@
 
 ### 用户注册
 
+##### API_REGISTER: '/user/register'
+
 - 1.post
 - 2.name 查询是否被注册
-- 3.插入
-- 4.成功返回用户信息
-- 5.失败返回 code：0 data：{} msg
+- 3.{
+  "name": "name",
+  "birthday": "1029-2-9",
+  "sex": 1,
+  "age": 1,
+  "address": "address",
+  "email": "111@q.com",
+  "password": "111",
+  "introduction": "introduction",
+  "phone": 13495873920,
+  "register_date": "2020-03-12",
+  "image": ""
+  }
 
 ### 修改信息
 
@@ -38,7 +50,21 @@
 
 #### &emsp;&emsp;其他
 
-- token？
+##### API_UPDATEINFO: '/user/updateInfo'
+
+- 1.post
+- 2.{
+  "userid":2,
+  "name": "name",
+  "birthday": "1029-2-9",
+  "sex": 1,
+  "age": 1,
+  "address": "address",
+  "email": "111@q.com",
+  "introduction": "introduction",
+  "phone": 13495873920,
+  "image": ""
+  }s
 
 &emsp;
 

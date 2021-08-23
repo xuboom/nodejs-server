@@ -63,6 +63,16 @@ async function register(ctx) {
     register_date,
     image,
   } = ctx.request.body;
+  const isExit = await mysql("user").where({
+    name: name,
+  });
+  if (isExit) {
+    ctx.body = {
+      code: 100,
+      msg: "isExit",
+    };
+    return;
+  }
   const data = await mysql("user").insert({
     name: name,
     birthday: birthday,
@@ -76,7 +86,6 @@ async function register(ctx) {
     register_date: register_date,
     image: image,
   });
-  console.log("dddd", data);
   if (data) {
     ctx.body = {
       code: 0,
@@ -114,19 +123,79 @@ async function getInfo(ctx) {
   }
 }
 
-// async function updateInfo(ctx){
-//   const { userid, column_name } = ctx.query;
-//   let result = await mysql("user")
-//   .where({
-//     id: userid,
-//   })
-//   .update({
-//     'column_name': column_name
-//   })
-// }
+async function updateInfo(ctx) {
+  const {
+    userid,
+    name,
+    birthday,
+    sex,
+    age,
+    address,
+    email,
+    introduction,
+    phone,
+  } = ctx.request.body;
+  let result = await mysql("user")
+    .where({
+      id: userid,
+    })
+    .update({
+      name: name,
+      birthday: birthday,
+      sex: sex,
+      age: age,
+      address: address,
+      email: email,
+      introduction: introduction,
+      phone: phone,
+    });
+  if (result) {
+    ctx.body = {
+      code: 0,
+      msg: "success",
+    };
+  } else {
+    ctx.body = {
+      code: 999,
+      msg: "fail",
+    };
+  }
+}
+
+async function updatePass(ctx) {
+  const { userid, password, newpassword } = ctx.request.body;
+  let result = await mysql("user").where({
+    id: userid,
+    password: password,
+  });
+  console.log("rere", result);
+  if (result !== []) {
+    let update = await mysql("user")
+      .where({
+        id: userid,
+      })
+      .update({
+        password: newpassword,
+      });
+    if (update) {
+      ctx.body = {
+        code: 0,
+        msg: "success",
+      };
+    }
+  } else {
+    ctx.body = {
+      code: 100,
+      msg: "password wrong",
+    };
+    return;
+  }
+}
+
 module.exports = {
   login,
   register,
   getInfo,
-  // updateInfo,
+  updateInfo,
+  updatePass,
 };

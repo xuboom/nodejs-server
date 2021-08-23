@@ -11,6 +11,10 @@ router.get("/user/login", api.user.index.login);
 router.get("/user/getInfo", api.user.index.getInfo);
 // 注册新用户
 router.post("/user/register", api.user.index.register);
+// 用户信息更新
+router.post("/user/updateInfo", api.user.index.updateInfo);
+// 用户密码修改
+router.post("/user/updatePass", api.user.index.updatePass);
 // 获取用户每日
 router.get("/daily/getDaily", api.daily.index.getDaily);
 // 获取所有每日
